@@ -167,7 +167,11 @@ namespace Toolbox.PixivMeta
                     }
                     if (i == _pixivImageInfos.Count)
                     {
-                        _pixivImageInfos.Add(new PixivImageInfo(filename));
+                        try
+                        {
+                            _pixivImageInfos.Add(new PixivImageInfo(filename));
+                        }
+                        catch { }
                     }
                 }
             }

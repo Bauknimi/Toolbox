@@ -1,36 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <UseWPF>true</UseWPF>
-    <ApplicationIcon>Toolbox.ico</ApplicationIcon>
-    <AssemblyName>Toolbox</AssemblyName>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationIcon>Toolbox.ico</ApplicationIcon>
+		<AssemblyName>Toolbox</AssemblyName>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>false</Optimize>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<Optimize>false</Optimize>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="HandyControl" Version="3.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="HandyControl" Version="3.2.0" />
+		<PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="System.Drawing.Common">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.0\System.Drawing.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms">
-      <HintPath>..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.0\System.Windows.Forms.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="rd /s /q $(OutDir)ca-ES&#xD;&#xA;rd /s /q $(OutDir)en&#xD;&#xA;rd /s /q $(OutDir)fa&#xD;&#xA;rd /s /q $(OutDir)fr&#xD;&#xA;rd /s /q $(OutDir)ko-KR&#xD;&#xA;rd /s /q $(OutDir)pt-BR&#xD;&#xA;rd /s /q $(OutDir)ru&#xD;&#xA;rd /s /q $(OutDir)tr&#xD;&#xA;rd /s /q $(OutDir)ref" />
-  </Target>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="rd /s /q $(OutDir)ca-ES&#xD;&#xA;rd /s /q $(OutDir)en&#xD;&#xA;rd /s /q $(OutDir)fa&#xD;&#xA;rd /s /q $(OutDir)fr&#xD;&#xA;rd /s /q $(OutDir)ko-KR&#xD;&#xA;rd /s /q $(OutDir)pt-BR&#xD;&#xA;rd /s /q $(OutDir)ru&#xD;&#xA;rd /s /q $(OutDir)tr&#xD;&#xA;rd /s /q $(OutDir)ref" />
+	</Target>
 
 </Project>

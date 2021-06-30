@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Media.Imaging;
@@ -13,6 +14,16 @@ namespace Toolbox.PixivMeta
 
     class PixivImageInfo : INotifyPropertyChanged
     {
+
+        private static HttpClient HttpClient;
+        
+        static PixivImageInfo()
+        {
+            new HttpClientHandler().ServerCertificateCustomValidationCallback += (_, _, _, _) => true;
+            HttpClient = new HttpClient();
+            HttpClient.DefaultRequestHeaders.Add("Accept-Language", "zh-cn");
+            HttpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36 Edg/91.0.864.59");
+        }
 
         public FileInfo file;
         private string newName;
@@ -138,18 +149,9 @@ namespace Toolbox.PixivMeta
             string html;
             try
             {
-                WebRequest request = WebRequest.Create(url);            //实例化WebRequest对象  
-                request.Headers.Add("Accept-Language", "zh-cn");        //获取中文页面
-                request.Timeout = 5000;                                 //限制5s
-                WebResponse response = request.GetResponse();           //创建WebResponse对象  
-                Stream datastream = response.GetResponseStream();       //创建流对象
-                StreamReader reader = new StreamReader(datastream, Encoding.UTF8);  //UTF-8编码
-                html = reader.ReadToEnd();                       //读取网页内容 
-                reader.Dispose();
-                datastream.Dispose();
-                response.Dispose();
+                html = HttpClient.GetStringAsync(url).Result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Remark = "网络异常";
                 State = false;
