@@ -85,7 +85,7 @@ namespace Toolbox.PixivMeta
                 Rating = meta.Rating;
             }
             Pid = Regex.Match(Name, "([0-9]+?)_p").Groups[1].Value;
-            Page = Regex.Match(Name, "_p([0-9]+?)").Groups[1].Value;
+            Page = Regex.Match(Name, @"_p([0-9]+?)[\.\]]").Groups[1].Value;
             if (Pid == "")
             {
                 State = false;
